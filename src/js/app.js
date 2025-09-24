@@ -278,42 +278,34 @@ window.addEventListener("load", function () {
 
   // GSAP
 
-  const links = [...document.querySelectorAll(".hero__link")];
+  function initDesktop() {
+    const links = [...document.querySelectorAll(".hero__link")];
 
-  gsap.set(links, { y: 100, opacity: 0 });
+    // стартовые значения, чтобы не мигало
+    gsap.set(links, { y: 100, opacity: 0 });
 
-  links.forEach((link) => {
-
-    gsap.fromTo(
-      link,
-      { y: 100, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 1.2,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: link.closest(".screen"),
-          start: "top center",
-          toggleActions: "play none play reverse",
+    // анимируем ссылки при скролле
+    links.forEach((link) => {
+      gsap.fromTo(
+        link,
+        { y: 100, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1.2,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: link.closest(".screen"),
+            start: "top center",
+            toggleActions: "play none play reverse",
+          }
         }
-      }
-    );
+      );
+    });
 
-  });
-
-  function initialiseApp() {
-    initialiseGSAPScrollTriggerPinning();
-    initialiseLenisScroll();
-  }
-
-  function initialiseGSAPScrollTriggerPinning() {
-
+    // пин секций
     const sections = document.querySelectorAll(".screen");
-
     sections.forEach((section) => {
-      const nextSection = section.nextElementSibling;
-
       ScrollTrigger.create({
         trigger: section,
         start: "bottom bottom",
@@ -323,27 +315,37 @@ window.addEventListener("load", function () {
         anticipatePin: 1,
         scrub: 0.5,
         invalidateOnRefresh: true,
-        ease: "none"
+        ease: "none",
       });
     });
-  }
 
-  function initialiseLenisScroll() {
+    // Lenis + связка с GSAP
     const lenis = new Lenis({
       smoothWheel: true,
-      duration: 1.2
+      duration: 1.2,
     });
 
     lenis.on("scroll", ScrollTrigger.update);
 
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000);
-    });
-
+    const tickerFn = (time) => lenis.raf(time * 1000);
+    gsap.ticker.add(tickerFn);
     gsap.ticker.lagSmoothing(0);
+
+    return () => {
+      ScrollTrigger.getAll().forEach((t) => t.kill(true));
+      gsap.set(links, { clearProps: "all" });
+
+      gsap.ticker.remove(tickerFn);
+      lenis.destroy();
+    };
   }
 
-  initialiseApp();
+  const mm = gsap.matchMedia();
+
+  mm.add("(min-width: 1025px)", () => {
+    return initDesktop();
+  });
+
 
   // Модалка
 
