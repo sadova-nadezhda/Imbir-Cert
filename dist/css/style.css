@@ -645,6 +645,7 @@ h6 {
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
+  pointer-events: none;
   z-index: -2;
 }
 
