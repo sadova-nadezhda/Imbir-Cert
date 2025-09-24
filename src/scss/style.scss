@@ -525,6 +525,7 @@
       height: 0;
       width: 0;
       &:checked + label {
+        border-color: var(--light, $light);
         background-color: var(--primary, $primary);
         color: var(--light, $light);
       }

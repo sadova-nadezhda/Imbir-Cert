@@ -848,6 +848,7 @@ h6 {
 }
 
 .form__fields input[type=radio]:checked + label {
+  border-color: var(--light, #E9E1D7);
   background-color: var(--primary, #974338);
   color: var(--light, #E9E1D7);
 }
