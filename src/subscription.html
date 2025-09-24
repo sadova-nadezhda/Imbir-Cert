@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  @@include('html/head.html', { "title": "Главная" })
+  <body>
+    @@include('html/header.html', { "class": "light" })
+
+    <div id="preloader" class="form-preloader">
+      <div class="wave-bouncing-loading-animation"  role="alert" aria-busy="true" aria-label="Loading">
+        <span style="--item:1">
+          <svg width="60" height="75" viewBox="0 0 60 75" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clip-path="url(#clip0_4005_558)">
+            <path d="M26.4777 6.93703C27.3219 4.34455 30.4988 2.15092 33.1591 3.55241C35.4529 5.00376 34.3477 8.08925 33.4702 10.0779C32.6426 12.2328 29.8934 11.9226 28.0384 12.338C27.172 10.6928 25.8946 8.88693 26.4777 6.93703Z" fill="#974338"/>
+            <path d="M21.929 14.7089C21.929 12.6371 23.3452 10.9144 24.8781 9.66797C26.15 11.64 27.2552 13.9611 26.872 16.3763C26.772 17.2294 26.1555 17.9218 25.4224 18.3262C23.3785 18.653 22.1733 16.4206 21.929 14.7089Z" fill="#974338"/>
+            <path d="M35.7307 11.3018C36.7416 9.11371 39.9795 10.1385 40.8682 11.9499C42.4621 14.066 41.1903 16.6751 39.9406 18.5973C37.6413 16.8912 35.342 14.3928 35.7307 11.3018Z" fill="#974338"/>
+            <path d="M30.5488 16.5091C33.7756 15.3846 37.7745 18.4923 37.2413 21.9212C36.3638 24.1703 33.5868 24.6079 31.4541 24.5303C29.4435 24.5359 26.7832 23.993 26.1112 21.7994C25.7446 19.1792 28.3938 17.3401 30.5488 16.5091Z" fill="#974338"/>
+            <path d="M18.6134 27.5106C17.2526 24.27 18.1357 20.5973 18.6578 17.2515C21.1349 18.9909 23.4231 21.5058 23.7341 24.6356C23.8952 26.375 23.9174 28.3637 22.7733 29.8095C21.0516 31.2664 19.4742 28.8124 18.6134 27.5106Z" fill="#974338"/>
+            <path d="M38.7632 24.1479C40.1072 21.8711 41.0625 18.913 43.8228 17.999C45.4501 20.6303 45.3946 24.1645 43.4618 26.6296C42.6565 27.5713 41.7956 28.8066 40.4571 28.9451C38.4855 28.3413 37.6191 25.8651 38.7632 24.1479Z" fill="#974338"/>
+            <path d="M29.4659 26.5524C32.0707 25.3503 34.8033 27.1451 36.6805 28.8679C38.8965 30.7679 38.3411 34.3741 36.3528 36.2243C34.8088 36.1468 33.4981 35.1884 32.0152 34.8671C30.0213 34.5791 28.555 37.1937 26.6723 36.6121C23.6953 33.521 25.6448 28.0148 29.4659 26.5524Z" fill="#974338"/>
+            <path d="M45.0115 27.6325C45.9224 27.278 46.3611 28.3803 46.5333 29.0728C47.6663 33.0224 45.3003 36.9333 42.6511 39.692C41.618 40.966 38.9744 41.0048 38.6967 39.0826C38.6522 36.4403 40.3406 34.2189 41.6791 32.0752C42.751 30.574 43.5397 28.8013 45.0115 27.6325Z" fill="#974338"/>
+            <path d="M16.4254 27.6821C19.9799 30.6513 23.1956 34.4735 24.3897 39.0159C25.345 41.4533 21.5183 42.5723 20.3798 40.6944C17.7416 36.9608 15.2812 32.3907 16.4254 27.6821Z" fill="#974338"/>
+            <path d="M30.0215 38.2406C31.3211 37.4152 33.0317 37.5703 34.1758 38.5896C35.6587 39.7972 37.4138 41.4424 37.1139 43.5419C36.1086 45.5361 34.5702 47.3198 32.754 48.6216C30.4713 49.663 28.2109 47.5358 26.9335 45.8408C25.1173 43.0045 27.3611 39.5479 30.0215 38.2406Z" fill="#974338"/>
+            <path d="M40.1185 45.4143C41.0349 44.4061 42.1679 43.6416 43.3509 42.9824C44.4728 46.5665 42.3401 50.0342 40.2129 52.7596C35.1311 59.1799 27.2111 62.2322 21.1684 67.5501C18.9357 69.4335 17.6083 72.0758 16.3809 74.6572C16.2809 71.8598 16.1754 68.8186 17.8305 66.4034C19.7133 63.6669 22.3181 61.5397 24.4786 59.0359C21.4406 60.1825 18.2359 62.1546 14.8813 61.0245C10.2604 59.5898 7.77226 55.0973 5.41183 51.2418C4.06222 48.882 2.2794 46.8268 0.407715 44.8769C3.93448 43.481 7.75005 45.2481 10.8991 46.849C14.6869 49.1645 18.2748 52.0173 21.0129 55.5238C17.2362 56.7481 14.026 53.657 11.0658 51.8124C11.3712 53.5628 12.1599 55.2524 13.6595 56.2883C16.1865 58.2659 19.5689 58.4044 22.6235 57.9723C23.6399 57.7119 24.4786 58.36 25.3172 58.8032C30.7101 54.8757 35.5476 50.2558 40.1185 45.4143Z" fill="#974338"/>
+            <path d="M20.1462 43.5696C23.7674 43.5364 25.9501 46.7437 27.9273 49.2919C28.4994 50.0674 29.1659 51.624 27.9496 52.117C26.4111 52.9313 24.5228 52.178 23.2953 51.1255C21.1293 49.242 20.3962 46.3116 20.1462 43.5696Z" fill="#974338"/>
+            <path d="M52.3095 48.6823C55.0198 47.8736 57.919 47.0205 60.7515 47.6575C61.1014 48.638 60.1905 49.336 59.6907 50.0617C55.1198 55.3297 52.465 62.1211 47.0332 66.669C44.7727 68.6522 41.5959 69.4499 38.6467 68.9015C35.5698 68.3254 32.2208 67.5498 30.1714 64.974C31.9098 64.9075 33.6426 64.9961 35.3699 65.1512C40.0352 65.6442 44.9727 63.4007 47.4386 59.3735C47.9663 58.5481 47.9885 57.5344 48.144 56.6038C45.7725 57.9554 43.8952 60.0826 41.3126 61.0852C39.2799 62.038 37.0028 62.2873 34.7867 62.038C39.7908 56.6647 45.2393 51.1917 52.3095 48.6823Z" fill="#974338"/>
+            </g>
+            <defs>
+            <clipPath id="clip0_4005_558">
+            <rect width="60" height="75" fill="white"/>
+            </clipPath>
+            </defs>
+          </svg>
+        </span>
+        <span style="--item:2">i</span>
+        <span style="--item:3">m</span>
+        <span style="--item:4">b</span>
+        <span style="--item:5">i</span>
+        <span style="--item:6">r</span>
+    </div>
+    </div>
+
+    <main>
+      <section class="subscription page-type section-hidden">
+        <video autoplay loop muted playsinline>
+          <source src="@img/video-2.mp4" type="video/mp4">
+          Ваш браузер не поддерживает встроенные видео
+        </video>
+        <div class="container">
+          <div class="subscription__container page-type__container corners">
+            <div class="subscription__left page-type__left">
+              <div class="subscription__title page-type__title text-up">[membership]</div>
+              <div class="subscription__img page-type__img"></div>
+            </div>
+            <form class="subscription__form page-type__form form">
+              <div class="form__steps">
+                <div class="form__step">
+                  <div class="form__group">
+                    <div class="form__heading">
+                      <div class="form__caption">Выберите тип абонемента</div>
+                      <div class="form__num">01</div>
+                    </div>
+                    <div class="form__fields fields-2">
+                      <input type="radio" name="type" id="type_1" required>
+                      <label for="type_1">Эндосфера</label>
+                      <input type="radio" name="type" id="type_2">
+                      <label for="type_2">Индибо</label>
+                      <input type="radio" name="type" id="type_3">
+                      <label for="type_3">Oil массаж</label>
+                      <input type="radio" name="type" id="type_4">
+                      <label for="type_4">Тайский массаж</label>
+                    </div>
+                  </div>
+                  <div class="form__group">
+                    <div class="form__heading">
+                      <div class="form__caption">Выберите количество посещений</div>
+                      <div class="form__num">02</div>
+                    </div>
+                    <div class="form__fields fields-2">
+                      <input type="radio" name="amount" id="amount_1" data-prices='{"type_1":357000,"type_2":360000,"type_3":312000,"type_4":276000}' required>
+                      <label for="amount_1">12 + 2</label>
+                      <input type="radio" name="amount" id="amount_2" data-prices='{"type_1":189000,"type_2":180000,"type_3":156000,"type_4":138000}'>
+                      <label for="amount_2">6 + 1</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="form__step">
+                  <div class="form__group">
+                    <div class="form__heading">
+                      <div class="form__caption">Заполнение данных</div>
+                      <div class="form__num">03</div>
+                    </div>
+                    <div class="form__fields fields-1">
+                      <input type="text" placeholder="Ваше ФИО" required>
+                      <input type="email" placeholder="Ваш E-mail" required>
+                      <input type="tel" placeholder="Ваш номер телефона" required>
+                    </div>
+                  </div>
+                  <div class="form__result">
+                    <div class="form__price">Итого: <span>0</span> тг</div>
+                    <a href="rules.html" class="form__link">Правила использования абонементов</a>
+                  </div>
+                </div>
+              </div>
+              <div class="form__bottom">
+                <span style="display:none">Нажимая кнопку «Завершить», вы предоставляете  согласие на обработку персональных данных</span>
+                <div class="form__buttons">
+                  <button class="form__button form__prev button button-border button-light">< Назад</button>
+                  <button class="form__button form__next button button-border button-primary">Продолжить ></button>
+                  <button class="form__button form__submit button button-border button-primary" style="display:none">Завершить</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- @@include('html/footer.html')  -->
+    @@include('html/foot.html')
+  </body>
+</html>

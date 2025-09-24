@@ -1,0 +1,258 @@
+@import "fonts";
+@import "vars.scss";
+@import "mixins.scss";
+
+:root {
+  --light: #E9E1D7;
+  --dark: #000000;
+  --primary: #974338;
+  --bg-light: #FDF5EB;
+  --width-base: 1440;
+  --width-current: 100vw;
+  --width-multiplier: var(--width-current) / var(--width-base);
+}
+
+@media(max-width: 1024px) {
+    :root {
+      --width-base: 768;
+      --width-current: 100vmin;
+    }
+}
+
+@media(max-width: 767px) {
+    :root {
+      --width-base: 375;
+      --width-current: 100vmin;
+    }
+}
+
+html {
+  height: 100%;
+  margin: 0;
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(100 * var(--width-multiplier));
+}
+
+:-webkit-scrollbar {
+  width: 4px;
+}
+
+html::-webkit-scrollbar {
+  width: 0px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+input:focus-visible {
+  outline: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+  height: 100%;
+  margin: 0;
+  color: var(--primary, $primary);
+  font: 500 calc(16 * var(--width-multiplier))/1.2 Manrope;
+  text-rendering: optimizeSpeed;
+  background-color: var(--light, $light);
+  &.red {
+    color: var(--light, $light);
+    background-color: var(--primary, $primary);
+  }
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style-position: inside;
+}
+
+ul[class],
+ol[class] {
+  list-style: none;
+}
+
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+article>*+* {
+  margin-top: 1em;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+  }
+}
+
+.container {
+  width: 100%;
+  padding: 0 calc(40 * var(--width-multiplier));
+  @media(max-width: 1024px) {
+    padding: 0 calc(16 * var(--width-multiplier));
+  }
+}
+
+input:not([type="submit"]), textarea, select {
+  width: 100%;
+  padding: calc(18 * var(--width-multiplier)) calc(35 * var(--width-multiplier));
+  border: calc(1 * var(--width-multiplier)) dashed var(--primary, $primary);
+  border-radius: calc(50 * var(--width-multiplier));
+  color: rgba(151, 67, 56, 1);
+  background-color: var(--light, $light);
+  font: 500 1em/1 Manrope;
+  letter-spacing: -2%;
+  &::placeholder {
+    color: rgba(151, 67, 56, 0.4);
+  }
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(8 * var(--width-multiplier));
+  width: max-content;
+  padding: calc(18 * var(--width-multiplier)) calc(52 * var(--width-multiplier));
+  border: none;
+  border-radius: calc(50 * var(--width-multiplier));
+  letter-spacing: -2%;
+  text-align: center;
+  @include transition;
+  &:hover:not(:disabled) {
+    cursor: pointer;
+  }
+  &:disabled {
+    border-color: var(--primary, $primary);
+    color: var(--primary, $primary);
+    background-color: var(--light, $light);
+    opacity: 0.4;
+  }
+  &-circle {
+    min-width: calc(220 * var(--width-multiplier));
+    width: calc(220 * var(--width-multiplier));
+    height: calc(220 * var(--width-multiplier));
+    padding: calc(16 * var(--width-multiplier));
+    border-radius: 100%;
+    @media (max-width: 1024px) {
+      min-width: calc(180 * var(--width-multiplier));
+      width: calc(180 * var(--width-multiplier));
+      height: calc(180 * var(--width-multiplier));
+    }
+    @media (max-width: 767px) {
+      min-width: calc(150 * var(--width-multiplier));
+      width: calc(150 * var(--width-multiplier));
+      height: calc(150 * var(--width-multiplier));
+      font-size: calc(14 * var(--width-multiplier));
+    }
+  }
+  &-border {
+    border: calc(1 * var(--width-multiplier)) solid transparent;
+  }
+  &-primary {
+    border-color: var(--light, $light);
+    color: var(--light, $light);
+    background-color: var(--primary, $primary);
+    &:not(:disabled):hover {
+      border-color: var(--primary, $primary);
+      color: var(--primary, $primary);
+      background-color: var(--light, $light);
+    }
+  }
+  &-light {
+    border-color: var(--primary, $primary);
+    color: var(--primary, $primary);
+    background-color: var(--light, $light);
+    &:not(:disabled):hover {
+      border-color: var(--light, $light);
+      color: var(--light, $light);
+      background-color: var(--primary, $primary);
+    }
+  }
+  @media (max-width: 767px) {
+    padding: calc(16 * var(--width-multiplier)) calc(32 * var(--width-multiplier));
+  }
+}
+
+
+h1, h2 {
+  font: 500 calc(44 * var(--width-multiplier))/1.2 Manrope;
+  @media (max-width: 767px) {
+    font-size: calc(32 * var(--width-multiplier));
+  }
+}
+
+h3 {
+  font: 500 calc(32 * var(--width-multiplier))/1.2 Manrope;
+  @media (max-width: 767px) {
+    font-size: calc(24 * var(--width-multiplier));
+  }
+}
+
+h4 {
+  font: 500 calc(24 * var(--width-multiplier))/1.2 Manrope;
+  @media (max-width: 767px) {
+    font-size: calc(20 * var(--width-multiplier));
+  }
+}
+
+h5 {
+  font: 500 calc(20 * var(--width-multiplier))/1.2 Manrope;
+  @media (max-width: 767px) {
+    font-size: calc(18 * var(--width-multiplier));
+  }
+}
+
+h6 {
+  font: 500 calc(18 * var(--width-multiplier))/1.2 Manrope;
+  @media (max-width: 767px) {
+    font-size: calc(16 * var(--width-multiplier));
+  }
+}

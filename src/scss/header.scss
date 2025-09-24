@@ -1,0 +1,61 @@
+.header {
+  position: fixed;
+  top: calc(40 * var(--width-multiplier));
+  left: 0;
+  right: 0;
+  z-index: 3;
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: calc(16 * var(--width-multiplier));
+    padding: calc(30 * var(--width-multiplier)) calc(60 * var(--width-multiplier));
+    @media (max-width: 1024px) {
+      padding: calc(30 * var(--width-multiplier));
+    }
+    @media (max-width: 767px) {
+      padding: calc(20 * var(--width-multiplier));
+    }
+  }
+  &__logo {
+    svg {
+      width: calc(105 * var(--width-multiplier));
+      height: calc(20 * var(--width-multiplier));
+    }
+  }
+  &__tel {
+    position: relative;
+    &::before {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 0;
+      height: 1px;
+      width: 0;
+      background-color: var(--light, $light);
+      transition: width 0.3s ease-out;
+    }
+    &:hover {
+      &::before {
+        width: 100%;
+      }
+    }
+  }
+  &.light {
+    color: var(--light, $light);
+  }
+  &.red {
+    color: var(--primary, $primary);
+    path {
+      fill: var(--primary, $primary);
+    }
+    .header__tel {
+      &::before {
+        background-color: var(--primary, $primary);
+      }
+    }
+  }
+  @media (max-width: 767px) {
+      top: calc(20 * var(--width-multiplier));
+  }
+}
