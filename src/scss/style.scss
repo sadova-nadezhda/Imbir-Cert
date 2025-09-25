@@ -281,20 +281,20 @@
 
 // Section
 
+#smooth-content {
+  width: 100%;
+}
+
 .hero {
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100dvh;
+  min-height: 100dvh;
+  max-height: 100dvh;
+  display: flex;
   position: relative;
-  overflow: clip;
-  video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    pointer-events: none;
-    z-index: -2;
-  }
+  overflow: hidden;
   &::before {
     content: '';
     position: absolute;
@@ -306,13 +306,34 @@
     background: rgba(0, 0, 0, 0.3);
     z-index: -1;
   }
+  @media (max-width: 1024px) {
+    height: 50dvh;
+    min-height: 50dvh;
+    max-height: 50dvh;
+  }
+  &__bg {
+    z-index: -1;
+    object-fit: cover;
+    width: 100%;
+    height: 100vh;
+    min-height: 100vh;
+    max-height: 100vh;
+    position: absolute;
+    inset: 0%;
+    video {
+      width: 100vw;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 50%;
+    }
+  }
   &__container {
     position: relative;
     display: flex;
     flex-direction: column;
     min-height: 100dvh;
     padding: calc(40 * var(--width-multiplier)) 0;
-    @media (max-width: 767px) {
+    @media (max-width: 1024px) {
       min-height: 50dvh;
       padding: calc(20 * var(--width-multiplier)) 0;
     }
@@ -376,7 +397,7 @@
       z-index: -2;
       @media (max-width: 1024px) {
         width: 100%;
-        height: calc(520 * var(--width-multiplier));
+        height: calc(540 * var(--width-multiplier));
       }
       @media (max-width: 767px) {
         height: calc(420 * var(--width-multiplier));
@@ -394,7 +415,7 @@
       z-index: -1;
       @media (max-width: 1024px) {
         width: 100%;
-        height: calc(520 * var(--width-multiplier));
+        height: calc(540 * var(--width-multiplier));
       }
       @media (max-width: 767px) {
         height: calc(420 * var(--width-multiplier));

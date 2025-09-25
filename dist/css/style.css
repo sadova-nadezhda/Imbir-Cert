@@ -370,6 +370,14 @@ h6 {
   background-color: var(--primary, #974338);
 }
 
+.header.mid {
+  color: var(--primary, #974338);
+}
+
+.header.mid .header__tel::before {
+  background-color: var(--primary, #974338);
+}
+
 .footer {
   color: var(--light, #E9E1D7);
   background-color: var(--primary, #974338);
@@ -631,22 +639,20 @@ h6 {
   padding-left: calc(16 * var(--width-multiplier));
 }
 
-.hero {
-  position: relative;
-  overflow: clip;
+#smooth-content {
+  width: 100%;
 }
 
-.hero video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+.hero {
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
-  pointer-events: none;
-  z-index: -2;
+  height: 100dvh;
+  min-height: 100dvh;
+  max-height: 100dvh;
+  display: flex;
+  position: relative;
+  overflow: hidden;
 }
 
 .hero::before {
@@ -659,6 +665,27 @@ h6 {
   height: 100%;
   background: rgba(0, 0, 0, 0.3);
   z-index: -1;
+}
+
+.hero__bg {
+  z-index: -1;
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+  max-height: 100vh;
+  position: absolute;
+  inset: 0%;
+}
+
+.hero__bg video {
+  width: 100vw;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: 50% 50%;
+     object-position: 50% 50%;
 }
 
 .hero__container {
@@ -1106,12 +1133,31 @@ h6 {
     padding: calc(30 * var(--width-multiplier));
   }
 
+  .header.mid {
+    color: var(--light, #E9E1D7);
+  }
+
+  .header.mid .header__tel::before {
+    background-color: var(--light, #E9E1D7);
+  }
+
   .decor-l {
     font-size: calc(60 * var(--width-multiplier));
   }
 
   .decor-m {
     font-size: calc(44 * var(--width-multiplier));
+  }
+
+  .hero {
+    height: 50dvh;
+    min-height: 50dvh;
+    max-height: 50dvh;
+  }
+
+  .hero__container {
+    min-height: 50dvh;
+    padding: calc(20 * var(--width-multiplier)) 0;
   }
 
   .page__container {
@@ -1121,12 +1167,12 @@ h6 {
 
   .page-type video {
     width: 100%;
-    height: calc(520 * var(--width-multiplier));
+    height: calc(540 * var(--width-multiplier));
   }
 
   .page-type::before {
     width: 100%;
-    height: calc(520 * var(--width-multiplier));
+    height: calc(540 * var(--width-multiplier));
   }
 
   .page-type__container::before {
@@ -1350,11 +1396,6 @@ h6 {
   .modal {
     height: auto;
     max-height: 90vh;
-  }
-
-  .hero__container {
-    min-height: 50dvh;
-    padding: calc(20 * var(--width-multiplier)) 0;
   }
 
   .page__container {

@@ -1,16 +1,35 @@
-gsap.registerPlugin(ScrollTrigger);
-ScrollTrigger.normalizeScroll(true);
+  // GSAP
+
+gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+
+ScrollTrigger.matchMedia({
+  // Только для экранов >= 1025px
+  "(min-width: 1025px)": function () {
+    let smoother = ScrollSmoother.create({
+      smooth: 2,
+      effects: true,
+      normalizeScroll: true
+    });
+
+    ScrollTrigger.create({
+      trigger: ".hero__link",
+      pin: true,
+      start: "top top",
+      end: "bottom bottom",
+      markers: false
+    });
+  }
+});
 
 window.addEventListener("load", function () {
-  // Формы
-
+  // preloader
   const preloader = document.querySelector('#preloader');
 
   setTimeout(() => {
-    document.getElementById("preloader").classList.add("is-ready");
+    document.getElementById("preloader")?.classList.add("is-ready");
   }, 3000);
 
-  // Инициализируем все степперы
+  // Формы
   document.querySelectorAll(".page-type__form.form").forEach(initStepperForm);
 
   function initStepperForm(form) {
@@ -275,77 +294,6 @@ window.addEventListener("load", function () {
     // ——— старт
     showStep(current);
   }
-
-  // GSAP
-
-  function initDesktop() {
-    const links = [...document.querySelectorAll(".hero__link")];
-
-    // стартовые значения, чтобы не мигало
-    gsap.set(links, { y: 100, opacity: 0 });
-
-    // анимируем ссылки при скролле
-    links.forEach((link) => {
-      gsap.fromTo(
-        link,
-        { y: 100, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 1.2,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: link.closest(".screen"),
-            start: "top center",
-            toggleActions: "play none play reverse",
-          }
-        }
-      );
-    });
-
-    // пин секций
-    const sections = document.querySelectorAll(".screen");
-    sections.forEach((section) => {
-      ScrollTrigger.create({
-        trigger: section,
-        start: "bottom bottom",
-        pin: true,
-        pinType: "fixed",
-        pinSpacing: false,
-        anticipatePin: 1,
-        scrub: 0.5,
-        invalidateOnRefresh: true,
-        ease: "none",
-      });
-    });
-
-    // Lenis + связка с GSAP
-    const lenis = new Lenis({
-      smoothWheel: true,
-      duration: 1.2,
-    });
-
-    lenis.on("scroll", ScrollTrigger.update);
-
-    const tickerFn = (time) => lenis.raf(time * 1000);
-    gsap.ticker.add(tickerFn);
-    gsap.ticker.lagSmoothing(0);
-
-    return () => {
-      ScrollTrigger.getAll().forEach((t) => t.kill(true));
-      gsap.set(links, { clearProps: "all" });
-
-      gsap.ticker.remove(tickerFn);
-      lenis.destroy();
-    };
-  }
-
-  const mm = gsap.matchMedia();
-
-  mm.add("(min-width: 1025px)", () => {
-    return initDesktop();
-  });
-
 
   // Модалка
 

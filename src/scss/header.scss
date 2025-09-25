@@ -55,6 +55,21 @@
       }
     }
   }
+  &.mid {
+    color: var(--primary, $primary);
+    @media (max-width: 1024px) {
+      color: var(--light, $light);
+    }
+    .header__tel {
+      &::before {
+        background-color: var(--primary, $primary);
+        @media (max-width: 1024px) {
+          background-color: var(--light, $light);
+        }
+      }
+    }
+    
+  }
   @media (max-width: 767px) {
       top: calc(20 * var(--width-multiplier));
   }
