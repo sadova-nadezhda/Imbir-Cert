@@ -525,6 +525,10 @@ h6 {
   background: radial-gradient(circle at top left, #E9E1D7, transparent calc(32 * var(--width-multiplier))), radial-gradient(circle at top right, #E9E1D7, transparent calc(32 * var(--width-multiplier))), radial-gradient(circle at bottom left, #E9E1D7, transparent calc(32 * var(--width-multiplier))), radial-gradient(circle at bottom right, #E9E1D7, transparent calc(32 * var(--width-multiplier)));
 }
 
+body.modal-open {
+  overflow: hidden;
+}
+
 .modals {
   position: fixed;
   top: 0;
@@ -553,7 +557,7 @@ h6 {
   background-color: var(--light, #E9E1D7);
 }
 
-.modal__close {
+.modal__close.close {
   position: absolute;
   top: calc(40 * var(--width-multiplier));
   right: calc(40 * var(--width-multiplier));
@@ -637,6 +641,14 @@ h6 {
   -moz-columns: 2;
        columns: 2;
   padding-left: calc(16 * var(--width-multiplier));
+}
+
+.modal__rules {
+  padding: 0;
+  margin: 0;
+  max-width: unset;
+  width: 100%;
+  height: 100%;
 }
 
 #smooth-content {
@@ -1333,15 +1345,15 @@ h6 {
     background: radial-gradient(circle at top left, #E9E1D7, transparent calc(24 * var(--width-multiplier))), radial-gradient(circle at top right, #E9E1D7, transparent calc(24 * var(--width-multiplier))), radial-gradient(circle at bottom left, #E9E1D7, transparent calc(24 * var(--width-multiplier))), radial-gradient(circle at bottom right, #E9E1D7, transparent calc(24 * var(--width-multiplier)));
   }
 
+  .modal__close.close {
+    top: calc(30 * var(--width-multiplier));
+    right: calc(30 * var(--width-multiplier));
+  }
+
   .modal__close svg {
     width: calc(16 * var(--width-multiplier));
     min-width: calc(16 * var(--width-multiplier));
     height: calc(16 * var(--width-multiplier));
-  }
-
-  .modal__close {
-    top: calc(30 * var(--width-multiplier));
-    right: calc(30 * var(--width-multiplier));
   }
 
   .modal__box {
@@ -1396,6 +1408,11 @@ h6 {
   .modal {
     height: auto;
     max-height: 90vh;
+  }
+
+  .modal__rules {
+    max-height: unset;
+    height: 100dvh;
   }
 
   .page__container {

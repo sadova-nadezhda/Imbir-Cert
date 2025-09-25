@@ -313,6 +313,7 @@ window.addEventListener("load", function () {
             modalsParent.style.opacity = "0";
             modalsParent.style.display = "none";
           }
+          document.body.classList.remove("modal-open");
         }, 400);
       }
     });
@@ -331,6 +332,8 @@ window.addEventListener("load", function () {
       popup.style.transition = "opacity 0.4s";
       popup.style.opacity = "1";
     }, 10);
+
+    document.body.classList.add("modal-open");
   }
 
   let modalBtns = document.querySelectorAll(".modal-btn");

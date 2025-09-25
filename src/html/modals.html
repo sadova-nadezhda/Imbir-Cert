@@ -1,7 +1,7 @@
 <div class="modals">
   <div class="modal" data-modal="harmony">
     <div class="modal__container">
-      <button class="modal__close">
+      <button class="modal__close close">
         <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M1 1L21 21" stroke="#974338"/>
           <path d="M21 1L0.999974 21" stroke="#974338"/>
@@ -45,7 +45,7 @@
   </div>
   <div class="modal" data-modal="fondness">
     <div class="modal__container">
-      <button class="modal__close">
+      <button class="modal__close close">
         <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M1 1L21 21" stroke="#974338"/>
           <path d="M21 1L0.999974 21" stroke="#974338"/>
@@ -89,7 +89,7 @@
   </div>
   <div class="modal" data-modal="tone">
     <div class="modal__container">
-      <button class="modal__close">
+      <button class="modal__close close">
         <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M1 1L21 21" stroke="#974338"/>
           <path d="M21 1L0.999974 21" stroke="#974338"/>
@@ -128,6 +128,50 @@
           <li>Расслабляющий массаж с маслами (90 мин)</li>
           <li>Чайная церемония</li>
         </ol>
+      </div>
+    </div>
+  </div>
+  <div class="modal modal__rules" data-modal="rules">
+    @@include('header.html', { "class": "red" })
+    <div class="modal__container rules page">
+      <div class="container">
+        <div class="rules__container page__container corners">
+          <div class="rules__top top">
+            <div class="rules__title text-up">[rules / membership]</div>
+            <div class="rules__subtitle decor-m">Правила использования</div>
+          </div>
+          <div class="rules__wrap text-left-3">
+            <div class="rules__txt text col-5">
+              <p>— Услуги по данному абонементу предоставляются по предварительной записи за 7 дней.</p>
+              <p>— Срок действия абонемента 3 месяца со дня покупки. При бронировании по сертификату, вам необходимо указать серийный номер абонемента или выслать его фото.</p>
+              <p>— Ваша запись считается подтвержденной, после письменного подтверждения от администраторов. При посещении на процедуру, вам обязательно нужно иметь абонемент при себе. Он является такой же оплатой за процедуру.</p>
+              <p>— Возврат средств по абонементу возможен Покупателю в течении 14 дней со дня покупки, при наличии чека. Возврат будет осуществлён Покупателю тем же способом что и производилась оплата. За порчу абонемента (бланк, конверт), вычитается 1500 тг от общей суммы.</p>
+            </div>
+            <a class="rules__button button button-circle button-border button-primary modal__close">Назад</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal modal__rules" data-modal="rules2">
+    @@include('header.html', { "class": "red" })
+    <div class="modal__container rules page">
+      <div class="container">
+        <div class="rules__container page__container corners">
+          <div class="rules__top top">
+            <div class="rules__title text-up">[rules / certificate]</div>
+            <div class="rules__subtitle decor-m">Правила использования</div>
+          </div>
+          <div class="rules__wrap text-left-3">
+            <div class="rules__txt text col-5">
+              <p>— Услуги по данному абонементу предоставляются по предварительной записи за 7 дней.</p>
+              <p>— Срок действия абонемента 3 месяца со дня покупки. При бронировании по сертификату, вам необходимо указать серийный номер абонемента или выслать его фото.</p>
+              <p>— Ваша запись считается подтвержденной, после письменного подтверждения от администраторов. При посещении на процедуру, вам обязательно нужно иметь абонемент при себе. Он является такой же оплатой за процедуру.</p>
+              <p>— Возврат средств по абонементу возможен Покупателю в течении 14 дней со дня покупки, при наличии чека. Возврат будет осуществлён Покупателю тем же способом что и производилась оплата. За порчу абонемента (бланк, конверт), вычитается 1500 тг от общей суммы.</p>
+            </div>
+            <a class="rules__button button button-circle button-border button-primary modal__close">Назад</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
