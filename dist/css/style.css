@@ -1167,6 +1167,12 @@ body.modal-open {
     max-height: 50dvh;
   }
 
+  .hero__bg {
+    height: 50vh;
+    min-height: 50vh;
+    max-height: 50vh;
+  }
+
   .hero__container {
     min-height: 50dvh;
     padding: calc(20 * var(--width-multiplier)) 0;
