@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Главная</title>
   <link rel="shortcut icon" href="img/favicon.png" type="image/png">
-  <link rel="stylesheet" href="css/style.css?_v=20251007123110" />
+  <link rel="stylesheet" href="css/style.css?_v=20251015132049" />
 </head>
 
   <body>
@@ -93,7 +93,7 @@
         <div class="container">
           <div class="certificate__container page-type__container corners">
             <div class="certificate__left page-type__left">
-              <div class="certificate__title page-type__title text-up">[certificate]</div>
+              <div class="certificate__title page-type__title text-up">[ certificate ]</div>
               <div class="certificate__img page-type__img"><img src="img/certificate-1.png" alt=""></div>
             </div>
             <form class="certificate__form page-type__form form">
@@ -105,7 +105,7 @@
                       <div class="form__num">01</div>
                     </div>
                     <div class="form__fields fields-3">
-                      <input type="radio" name="price" id="price_1" required>
+                      <input type="radio" name="price" id="price_1" checked required>
                       <label for="price_1">5 000 тг</label>
                       <input type="radio" name="price" id="price_2">
                       <label for="price_2">10 000 тг</label>
@@ -189,7 +189,7 @@
                       <div class="form__num">03</div>
                     </div>
                     <div class="form__fields fields-2">
-                      <input type="radio" name="type" id="type_1" data-img="img/certificate-1.png" required>
+                      <input type="radio" name="type" id="type_1" data-img="img/certificate-1.png" checked required>
                       <label for="type_1">С Днём Рождения</label>
                       <input type="radio" name="type" id="type_2" data-img="img/certificate-2.png">
                       <label for="type_2">Для Любимой</label>
@@ -210,7 +210,15 @@
                       <div class="form__caption">Заполнение данных</div>
                       <div class="form__num">04</div>
                     </div>
-                    <div class="form__fields fields-2">
+                    <div class="form__fields fields-1">
+                      <input type="text" placeholder="Ваше ФИО" required>
+                      <input type="email" placeholder="Ваш E-mail" required>
+                      <div class="form__field">
+                        <input type="tel" placeholder="Ваш WhatsApp" required>
+                        <span class="form__note">Пожалуйста укажите Ваш номер WhatsApp, на него придет ссылка на сертификат.</span>
+                      </div>
+                    </div>
+                    <!-- <div class="form__fields fields-2">
                       <div class="form__from">
                         <span>От кого:</span>
                         <input type="text" placeholder="Ваше ФИО" required>
@@ -223,7 +231,7 @@
                         <input type="tel" placeholder="Ваш номер телефона" required>
                         <input type="text" placeholder="Текст поздравления">
                       </div>
-                    </div>
+                    </div> -->
                   </div>
                   <div class="form__result">
                     <div class="form__price">Итого: <span>0</span> тг</div>
@@ -234,8 +242,9 @@
               <div class="form__bottom">
                 <span style="display:none">Нажимая кнопку «Завершить», вы предоставляете  согласие на обработку персональных данных</span>
                 <div class="form__buttons">
-                  <button class="form__button form__prev button button-border button-light" style="display:none">< Назад</button>
-                  <button class="form__button form__next button button-border button-primary" disabled>Продолжить ></button>
+                  <a href="/" class="form__button back button button-border button-light">< Назад</a>
+                  <button class="form__button form__prev button button-border button-light">< Назад</button>
+                  <button class="form__button form__next button button-border button-primary">Продолжить ></button>
                   <button class="form__button form__submit button button-border button-primary" style="display:none" disabled>Завершить</button>
                 </div>
               </div>
@@ -500,9 +509,9 @@
   </div>
 </div>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js?_v=20251007123110"></script>
-<script src="https://cdn.prod.website-files.com/622b0a8557cc790ca01b97bb/66005a0997fdea31bc68d664_ScrollSmoother.min.js.txt?_v=20251007123110"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/ScrollTrigger.min.js?_v=20251007123110"></script>
-<script src="js/app.js?_v=20251007123110"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js?_v=20251015132049"></script>
+<script src="https://cdn.prod.website-files.com/622b0a8557cc790ca01b97bb/66005a0997fdea31bc68d664_ScrollSmoother.min.js.txt?_v=20251015132049"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/ScrollTrigger.min.js?_v=20251015132049"></script>
+<script src="js/app.js?_v=20251015132049"></script>
   </body>
 </html>

@@ -152,6 +152,9 @@ input:not([type="submit"]), textarea, select {
   &::placeholder {
     color: rgba(151, 67, 56, 0.4);
   }
+  @media (max-width: 767px) {
+    padding: calc(16 * var(--width-multiplier)) calc(20 * var(--width-multiplier));
+  }
 }
 
 .button {

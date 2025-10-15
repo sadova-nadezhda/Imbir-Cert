@@ -53,6 +53,7 @@ window.addEventListener("load", function () {
     const steps = $all(".form__step");
     if (!steps.length) return;
 
+    const btnBack  = $(".form__buttons .form__button.back"); 
     const btnPrev   = $(".form__buttons .form__prev");
     const btnNext   = $(".form__buttons .form__next");
     const btnFinish = $(".form__buttons .form__submit");
@@ -202,6 +203,8 @@ window.addEventListener("load", function () {
 
       const isFirst = i === 0;
       const isLast  = i === steps.length - 1;
+
+      if (btnBack)  { btnBack.style.display  = isFirst ? "inline-block" : "none"; }
 
       if (btnPrev)   { btnPrev.style.display   = isFirst ? "none" : "inline-block"; btnPrev.disabled = isFirst; }
       if (btnNext)   { btnNext.style.display   = isLast  ? "none"  : "inline-block"; }

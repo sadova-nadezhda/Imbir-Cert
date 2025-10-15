@@ -37,8 +37,8 @@
     }
   }
   &__wrap {
-    padding-bottom: 20px;
-    margin-bottom: 20px;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
     border-bottom: 1px solid rgba(233, 225, 215, 0.3);
   }
   &__logo {
@@ -49,6 +49,11 @@
       height: 100%;
       object-fit: contain;
     }
+  }
+  &__group {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
   }
   &__menu {
     display: flex;
@@ -62,6 +67,27 @@
     line-height: 1.2em;
     @media (max-width: 767px) {
       gap: 16px;
+    }
+  }
+  &-hero {
+    background-color: var(--dark, $dark);
+    .footer__container {
+      padding: 20px 0;
+      @media (max-width: 767px) {
+        padding: 20px 0;
+      }
+    }
+    &__menu {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      @media (max-width: 767px) {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 16px;
+      }
     }
   }
 }

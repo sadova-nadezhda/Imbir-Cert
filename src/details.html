@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  @@include('html/head.html', { "title": "Главная" })
+  <body>
+    @@include('html/header.html', { "class": "red" })
+
+    <main>
+      <section class="rules page section-hidden">
+        <div class="container">
+          <div class="rules__container page__container corners">
+            <div class="rules__top top">
+              <div class="rules__title text-up">[ details ]</div>
+              <div class="rules__subtitle decor-s">Реквизиты</div>
+            </div>
+            <div class="rules__wrap text-left-3">
+              <div class="rules__txt info__txt text col-5">
+                <p>ТОО «Imbir Group»</p>
+                <p>БИН 170340025554</p>
+                <p>Юридический адрес: РК, г. Астана, проспект Тауельсыздык 40/5</p>
+                <p>Фактический адрес: РК, г. Астана, ул. А. Бокейханова, 28 н.п. 2</p>
+                <p>Контактный номер: <a href="tel:+77081118098">+7 708 111 80 98</a></p>
+              </div>
+              <a href="/" class="rules__button button button-circle button-border button-primary">Назад</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    @@include('html/footer.html') 
+    @@include('html/foot.html')
+  </body>
+</html>

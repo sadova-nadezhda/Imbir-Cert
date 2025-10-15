@@ -9,9 +9,9 @@
     justify-content: space-between;
     align-items: center;
     gap: calc(16 * var(--width-multiplier));
-    padding: calc(30 * var(--width-multiplier)) calc(60 * var(--width-multiplier));
+    padding: calc(20 * var(--width-multiplier)) calc(60 * var(--width-multiplier));
     @media (max-width: 1024px) {
-      padding: calc(30 * var(--width-multiplier));
+      padding: calc(20 * var(--width-multiplier)) calc(30 * var(--width-multiplier));
     }
     @media (max-width: 767px) {
       padding: calc(20 * var(--width-multiplier));
