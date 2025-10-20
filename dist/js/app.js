@@ -342,21 +342,30 @@ window.addEventListener("load", function () {
     }
 
     // ——— превью дизайна
-    if (previewImg && form.classList.contains("certificate__form")) {
+    if (form.classList.contains("certificate__form")) {
+      const gallery = container.querySelector(".certificate__img");
       const designInputs = form.querySelectorAll('input[name="type"][data-img]');
-      const swapImage = (src) => {
-        if (!src) return;
-        previewImg.src = src;
-        previewImg.classList.add("fade");
-        setTimeout(() => previewImg.classList.remove("fade"), 300);
-      };
+
+      function setActiveByData(key) {
+        if (!gallery || !key) return;
+        const imgs = Array.from(gallery.querySelectorAll("img[data-img]"));
+        imgs.forEach((img) => {
+          const isMatch = img.dataset.img === key;
+          img.classList.toggle("active", isMatch);
+          img.toggleAttribute("aria-hidden", !isMatch);
+        });
+      }
+
       designInputs.forEach((input) => {
         input.addEventListener("change", () => {
-          if (input.checked && input.dataset.img) swapImage(input.dataset.img);
+          if (input.checked && input.dataset.img) {
+            setActiveByData(input.dataset.img);
+          }
         });
       });
+
       const chosen = form.querySelector('input[name="type"][data-img]:checked');
-      if (chosen?.dataset?.img) swapImage(chosen.dataset.img);
+      if (chosen?.dataset?.img) setActiveByData(chosen.dataset.img);
     }
 
     // поздравление
