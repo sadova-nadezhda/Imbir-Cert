@@ -920,6 +920,12 @@ body.modal-open {
   opacity: 1;
 }
 
+.form .services-price {
+  margin-top: calc(30 * var(--width-multiplier));
+  font-size: calc(20 * var(--width-multiplier));
+  text-align: end;
+}
+
 .form__group,
 .form__services {
   display: flex;
@@ -1607,6 +1613,12 @@ body.modal-open {
 
   .form__tabs {
     gap: calc(16 * var(--width-multiplier));
+  }
+
+  .form .services-price {
+    margin-top: calc(20 * var(--width-multiplier));
+    font-size: calc(16 * var(--width-multiplier));
+    text-align: center;
   }
 
   .form__group,

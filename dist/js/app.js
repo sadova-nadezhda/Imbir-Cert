@@ -63,15 +63,35 @@ window.addEventListener("load", function () {
     const container  = form.closest(".certificate__container") || document;
     const previewImg = container.querySelector(".certificate__img img");
 
+    const servicesPriceNode = $('#tab-2 .services-price span');
+
     // ——— state
     let current = 0;
     let updateScheduled = false;
+
+    function renderServicePrice() {
+      if (!servicesPriceNode) return;
+      const onTab2 = activeTabId === '#tab-2';
+      if (!onTab2) {
+        servicesPriceNode.textContent = '';
+        return;
+      }
+      const checked = $('#tab-2 input[name="services"]:checked');
+      if (!checked) {
+        servicesPriceNode.textContent = '';
+        return;
+      }
+      const v = onlyDigits(checked.value);
+      servicesPriceNode.textContent = v ? `${fmt(v)} тг` : '';
+    }
+
     const scheduleUpdate = () => {
       if (updateScheduled) return;
       updateScheduled = true;
       queueMicrotask(() => {
         updateScheduled = false;
         renderTotal();
+        renderServicePrice();
         updateButtonsState();
       });
     };
@@ -122,6 +142,7 @@ window.addEventListener("load", function () {
       });
       updateServicesVisibility();
       renderTotal();
+      renderServicePrice();
       updateButtonsState();
     }
 
@@ -378,8 +399,6 @@ window.addEventListener("load", function () {
     updateButtonsState();
   }
 
-
-
   // Модалка
 
   function hidePopup(popup) {
@@ -403,7 +422,6 @@ window.addEventListener("load", function () {
       }
     });
   }
-
   function showPopup(popup) {
     const modalsParent = popup.parentElement;
     if (modalsParent) {

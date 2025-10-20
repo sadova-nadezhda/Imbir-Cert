@@ -601,6 +601,16 @@ body.modal-open {
       gap: calc(16 * var(--width-multiplier));
     }
   }
+  .services-price {
+    margin-top: calc(30 * var(--width-multiplier));
+    font-size: calc(20 * var(--width-multiplier));
+    text-align: end;
+    @media (max-width: 767px) {
+      margin-top: calc(20 * var(--width-multiplier));
+      font-size: calc(16 * var(--width-multiplier));
+      text-align: center;
+    }
+  }
   &__group, &__services {
     display: flex;
     flex-direction: column;
