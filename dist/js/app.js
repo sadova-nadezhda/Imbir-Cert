@@ -53,7 +53,7 @@ window.addEventListener("load", function () {
     const steps = $all(".form__step");
     if (!steps.length) return;
 
-    const btnBack  = $(".form__buttons .form__button.back"); 
+    const btnBack   = $(".form__buttons .form__button.back");
     const btnPrev   = $(".form__buttons .form__prev");
     const btnNext   = $(".form__buttons .form__next");
     const btnFinish = $(".form__buttons .form__submit");
@@ -76,10 +76,73 @@ window.addEventListener("load", function () {
       });
     };
 
-    // ——— validation (только активный шаг)
-    function radiosInStepByName(stepEl) {
+    // ——— tabs
+    const tabsList    = $('[data-tabs]');
+    const tabLinks    = tabsList ? Array.from(tabsList.querySelectorAll('a[href^="#tab-"]')) : [];
+    const tabPanels   = ['#tab-1', '#tab-2'].map((id) => $(id));
+    const servicesBox = $('.form__services');
+
+    function setControlsEnabled(root, enabled) {
+      if (!root) return;
+      root.querySelectorAll('input, select, textarea, button').forEach((el) => {
+        el.disabled = !enabled;
+        if (!enabled) {
+          if (el.type === 'radio') el.checked = false;
+          if (el.classList?.contains('input-text')) el.value = '';
+        }
+      });
+    }
+
+    function ensureFirstRadioChecked(root) {
+      if (!root) return;
+      const first = root.querySelector('input[type="radio"]');
+      if (first && !root.querySelector('input[type="radio"]:checked')) {
+        first.checked = true;
+      }
+    }
+
+    let activeTabId = (tabLinks.find(a => a.hasAttribute('data-tabby-default'))?.getAttribute('href') || '#tab-1');
+
+    // ——— показать/скрыть блок услуг
+    function updateServicesVisibility() {
+      if (!servicesBox) return;
+      const hide = activeTabId === '#tab-2';
+      servicesBox.style.display = hide ? 'none' : '';
+      servicesBox.toggleAttribute('inert', hide);
+    }
+
+    function applyTabVisibility() {
+      tabPanels.forEach((panel) => {
+        if (!panel) return;
+        const isActive = `#${panel.id}` === activeTabId;
+        panel.hidden = !isActive;
+        panel.toggleAttribute('inert', !isActive);
+        setControlsEnabled(panel, isActive);
+        if (isActive) ensureFirstRadioChecked(panel);
+      });
+      updateServicesVisibility();
+      renderTotal();
+      updateButtonsState();
+    }
+
+    if (tabsList && tabPanels.every(Boolean)) {
+      applyTabVisibility();
+      tabLinks.forEach((a) => {
+        a.addEventListener('click', (e) => {
+          e.preventDefault();
+          const href = a.getAttribute('href');
+          if (!href || href === activeTabId) return;
+          activeTabId = href;
+          tabLinks.forEach(l => l.classList.toggle('is-active', l === a));
+          applyTabVisibility();
+        });
+      });
+    }
+
+    // ——— validation
+    function radiosInScopeByName(scopeEl) {
       const map = new Map();
-      stepEl.querySelectorAll('input[type="radio"]').forEach((r) => {
+      scopeEl.querySelectorAll('input[type="radio"]').forEach((r) => {
         if (r.disabled) return;
         if (!map.has(r.name)) map.set(r.name, []);
         map.get(r.name).push(r);
@@ -89,9 +152,10 @@ window.addEventListener("load", function () {
 
     function isStepValid(stepEl) {
       let valid = true;
+      const isFirstStep = stepEl === steps[0];
+      const scope = (isFirstStep && tabsList && activeTabId) ? $(activeTabId) || stepEl : stepEl;
 
-      // групповые radio
-      const groups = radiosInStepByName(stepEl);
+      const groups = radiosInScopeByName(scope);
       groups.forEach((radios) => {
         const isRequired = radios.some((r) => r.required);
         if (!isRequired) return;
@@ -101,8 +165,7 @@ window.addEventListener("load", function () {
         if (!ok) valid = false;
       });
 
-      // прочие required
-      stepEl.querySelectorAll("input, select, textarea").forEach((ctrl) => {
+      scope.querySelectorAll("input, select, textarea").forEach((ctrl) => {
         if (ctrl.disabled || ctrl.type === "radio" || !ctrl.required) return;
         if (ctrl.type === "email") {
           if (!ctrl.value.trim()) valid = false;
@@ -114,18 +177,23 @@ window.addEventListener("load", function () {
       return valid;
     }
 
-    // ——— расчёт для сертификатов
-    function cert_getPriceValue() {
-      const anyPriceRadio = form.querySelector('input[type="radio"][name="price"]');
-      if (!anyPriceRadio) return 0;
-      const fields = anyPriceRadio.closest(".form__fields");
-      const manual = fields ? fields.querySelector(".input-text") : null;
-      const checked = form.querySelector('input[name="price"]:checked');
-
-      if (manual && manual.value.trim()) return num(manual.value);
-      if (checked) {
-        // у сертификатов текст — «5 000 тг», это безопасно парсить как цифры
-        return num(labelTextForInput(checked));
+    // ——— расчёт
+    function cert_getStep1Value() {
+      if (activeTabId === '#tab-1') {
+        const panel = $('#tab-1');
+        if (!panel) return 0;
+        const manual = panel.querySelector('.input-text');
+        const checked = panel.querySelector('input[name="price"]:checked');
+        if (manual && manual.value.trim()) return num(manual.value);
+        if (checked) return num(checked.value);
+        return 0;
+      }
+      if (activeTabId === '#tab-2') {
+        const panel = $('#tab-2');
+        if (!panel) return 0;
+        const checked = panel.querySelector('input[name="services"]:checked');
+        if (checked) return num(checked.value);
+        return 0;
       }
       return 0;
     }
@@ -148,33 +216,25 @@ window.addEventListener("load", function () {
       return 1;
     }
 
-    // ——— расчёт для абонементов
     function subs_getPackPrice() {
-      // тип абонемента — это radios name="type" БЕЗ data-img (в сертификате design имеет data-img)
       const typeChecked = form.querySelector('input[name="type"]:checked:not([data-img])');
       const amountChecked = form.querySelector('input[name="amount"]:checked[data-prices]');
       if (!typeChecked || !amountChecked) return 0;
-
       let map = {};
       try {
         map = JSON.parse(amountChecked.dataset.prices || "{}");
       } catch (e) { map = {}; }
-
-      // в JSON ключи — это id инпутов «type_*»
       const price = map[typeChecked.id];
       return typeof price === "number" ? price : num(price);
     }
 
-    // ——— обёртка computeTotal под два типа форм
     function computeTotal() {
       if (form.classList.contains("subscription__form")) {
-        // Абонементы — просто цена пакета
         return subs_getPackPrice() || 0;
       }
-      // Сертификаты — price * amount
-      const price = cert_getPriceValue();
-      const qty   = cert_getAmountValue();
-      return price * qty;
+      const priceOrService = cert_getStep1Value();
+      const qty = cert_getAmountValue();
+      return priceOrService * qty;
     }
 
     function renderTotal() {
@@ -184,7 +244,7 @@ window.addEventListener("load", function () {
       priceNodes.forEach((n) => (n.textContent = text));
     }
 
-    // ——— активный шаг / кнопки
+    // ——— шаги и кнопки
     function setStepEnabled(stepEl, enabled) {
       stepEl.hidden = !enabled;
       stepEl.toggleAttribute("inert", !enabled);
@@ -200,21 +260,17 @@ window.addEventListener("load", function () {
 
     function showStep(i) {
       steps.forEach((el, idx) => setStepEnabled(el, idx === i));
-
       const isFirst = i === 0;
       const isLast  = i === steps.length - 1;
-
-      if (btnBack)  { btnBack.style.display  = isFirst ? "inline-block" : "none"; }
-
-      if (btnPrev)   { btnPrev.style.display   = isFirst ? "none" : "inline-block"; btnPrev.disabled = isFirst; }
-      if (btnNext)   { btnNext.style.display   = isLast  ? "none"  : "inline-block"; }
-      if (btnFinish) { btnFinish.style.display = isLast  ? "inline-block" : "none"; }
-      if (finalNote) { finalNote.style.display = isLast  ? "block" : "none"; }
-
-      scheduleUpdate();
+      if (btnBack)   btnBack.style.display   = isFirst ? "inline-block" : "none";
+      if (btnPrev)  { btnPrev.style.display  = isFirst ? "none" : "inline-block"; btnPrev.disabled = isFirst; }
+      if (btnNext)   btnNext.style.display   = isLast  ? "none"  : "inline-block";
+      if (btnFinish) btnFinish.style.display = isLast  ? "inline-block" : "none";
+      if (finalNote) finalNote.style.display = isLast  ? "block" : "none";
+      renderTotal();
+      updateButtonsState();
     }
 
-    // ——— навигация
     btnPrev?.addEventListener("click", (e) => {
       e.preventDefault();
       if (current > 0) { current--; showStep(current); }
@@ -230,7 +286,7 @@ window.addEventListener("load", function () {
       form.submit();
     });
 
-    // ——— синхронизация manual ↔ radio в пределах одного .form__fields (только для сертификатов, у абонементов ручного ввода нет)
+    // ——— синхронизация manual ↔ radio
     if (form.classList.contains("certificate__form")) {
       $all(".form__fields").forEach((fields) => {
         const manual = fields.querySelector(".input-text");
@@ -241,7 +297,6 @@ window.addEventListener("load", function () {
           const d = onlyDigits(manual.value);
           manual.value = d ? fmt(d) : "";
           radios.forEach((r) => (r.checked = false));
-
           const isAmountGroup = radios[0]?.name === "amount";
           if (isAmountGroup) {
             const n = parseInt(d || "0", 10);
@@ -265,7 +320,7 @@ window.addEventListener("load", function () {
       });
     }
 
-    // ——— превью дизайна (только сертификаты: input[name="type"][data-img])
+    // ——— превью дизайна
     if (previewImg && form.classList.contains("certificate__form")) {
       const designInputs = form.querySelectorAll('input[name="type"][data-img]');
       const swapImage = (src) => {
@@ -283,6 +338,28 @@ window.addEventListener("load", function () {
       if (chosen?.dataset?.img) swapImage(chosen.dataset.img);
     }
 
+    // поздравление
+    const nameInput = $('input[name="nameTo"]');
+    const congratInput = $('input[name="congratulations"]');
+    const congratCheck = $('input[name="check-congrat"]');
+
+    function updateCongratVisibility() {
+      if (!congratInput || !congratCheck) return;
+      const on = congratCheck.checked;
+      congratInput.hidden   = !on;
+      congratInput.disabled = !on;
+      congratInput.required = on;
+      nameInput.hidden   = !on;
+      nameInput.disabled = !on;
+      nameInput.required = on;
+      if (!on) congratInput.value = '';
+      if (!on) nameInput.value = '';
+      updateButtonsState();
+    }
+
+    congratCheck?.addEventListener('change', updateCongratVisibility);
+    updateCongratVisibility();
+
     // ——— общие слушатели
     form.addEventListener("input",  scheduleUpdate);
     form.addEventListener("change", scheduleUpdate);
@@ -296,7 +373,12 @@ window.addEventListener("load", function () {
 
     // ——— старт
     showStep(current);
+    if (tabsList && activeTabId) ensureFirstRadioChecked($(activeTabId));
+    renderTotal();
+    updateButtonsState();
   }
+
+
 
   // Модалка
 
@@ -395,4 +477,7 @@ window.addEventListener("load", function () {
     input.addEventListener("keydown", mask, false)
 
   });
+
+  // Tabby
+  var tabs = new Tabby('[data-tabs]');
 });

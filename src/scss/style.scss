@@ -523,7 +523,7 @@ body.modal-open {
   &__step {
     display: flex;
     flex-direction: column;
-    gap: calc(20 * var(--width-multiplier));
+    gap: calc(30 * var(--width-multiplier));
     &[hidden] {
       display:none
     }
@@ -537,7 +537,7 @@ body.modal-open {
     justify-content: space-between;
     gap: calc(20 * var(--width-multiplier));
   }
-  &__caption, &__num {
+  &__num, &__caption {
     font-size: calc(24 * var(--width-multiplier));
     line-height: 1;
     letter-spacing: -2%;
@@ -546,6 +546,59 @@ body.modal-open {
     }
     @media (max-width: 767px) {
       font-size: calc(18 * var(--width-multiplier));
+    }
+  }
+  &__tabs {
+    display: flex;
+    align-items: center;
+    gap: calc(20 * var(--width-multiplier));
+    li {
+      &:last-child {
+        .form__caption {
+          padding-right: 0;
+          &::after {
+            content: none;
+          }
+        }
+      }
+    }
+    a[role=tab] {
+      position: relative;
+      display: block;
+      padding-right: calc(20 * var(--width-multiplier));
+      font-size: calc(20 * var(--width-multiplier));
+      line-height: 1;
+      letter-spacing: -2%;
+      opacity: 0.6;
+      &::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        display: block;
+        width: 1px;
+        height: 100%;
+        background-color: #974338;
+        opacity: 1;
+      }
+      @media (max-width: 1024px) {
+        padding-right: calc(18 * var(--width-multiplier));
+        font-size: calc(18 * var(--width-multiplier));
+      }
+      @media (max-width: 767px) {
+        padding-right: calc(16 * var(--width-multiplier));
+        font-size: calc(16 * var(--width-multiplier));
+      }
+    }
+    a[role=tab][aria-selected=true] {
+      opacity: 1;
+    }
+    @media (max-width: 1024px) {
+      gap: calc(18 * var(--width-multiplier));
+    }
+    @media (max-width: 767px) {
+      gap: calc(16 * var(--width-multiplier));
     }
   }
   &__group, &__services {
@@ -614,6 +667,22 @@ body.modal-open {
     display: flex;
     flex-direction: column;
     gap: calc(10 * var(--width-multiplier));
+  }
+  &__check {
+    display: flex;
+    align-items: center;
+    gap: calc(10 * var(--width-multiplier));
+    label {
+      padding: 0;
+      border: 0;
+    }
+    input {
+      width: calc(16 * var(--width-multiplier));
+      height: calc(16 * var(--width-multiplier));
+      margin: 0;
+      accent-color: #974338;
+      background-color: transparent;
+    }
   }
   &__note {
     @media (max-width: 767px) {

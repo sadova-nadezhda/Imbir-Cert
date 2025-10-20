@@ -858,7 +858,7 @@ body.modal-open {
 .form__step {
   display: flex;
   flex-direction: column;
-  gap: calc(20 * var(--width-multiplier));
+  gap: calc(30 * var(--width-multiplier));
 }
 
 .form__step[hidden] {
@@ -872,11 +872,52 @@ body.modal-open {
   gap: calc(20 * var(--width-multiplier));
 }
 
-.form__caption,
-.form__num {
+.form__num,
+.form__caption {
   font-size: calc(24 * var(--width-multiplier));
   line-height: 1;
   letter-spacing: -2%;
+}
+
+.form__tabs {
+  display: flex;
+  align-items: center;
+  gap: calc(20 * var(--width-multiplier));
+}
+
+.form__tabs li:last-child .form__caption {
+  padding-right: 0;
+}
+
+.form__tabs li:last-child .form__caption::after {
+  content: none;
+}
+
+.form__tabs a[role=tab] {
+  position: relative;
+  display: block;
+  padding-right: calc(20 * var(--width-multiplier));
+  font-size: calc(20 * var(--width-multiplier));
+  line-height: 1;
+  letter-spacing: -2%;
+  opacity: 0.6;
+}
+
+.form__tabs a[role=tab]::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: block;
+  width: 1px;
+  height: 100%;
+  background-color: #974338;
+  opacity: 1;
+}
+
+.form__tabs a[role=tab][aria-selected=true] {
+  opacity: 1;
 }
 
 .form__group,
@@ -946,6 +987,25 @@ body.modal-open {
   display: flex;
   flex-direction: column;
   gap: calc(10 * var(--width-multiplier));
+}
+
+.form__check {
+  display: flex;
+  align-items: center;
+  gap: calc(10 * var(--width-multiplier));
+}
+
+.form__check label {
+  padding: 0;
+  border: 0;
+}
+
+.form__check input {
+  width: calc(16 * var(--width-multiplier));
+  height: calc(16 * var(--width-multiplier));
+  margin: 0;
+  accent-color: #974338;
+  background-color: transparent;
 }
 
 .form__result {
@@ -1258,9 +1318,18 @@ body.modal-open {
     height: calc(320 * var(--width-multiplier));
   }
 
-  .form__caption,
-  .form__num {
+  .form__num,
+  .form__caption {
     font-size: calc(20 * var(--width-multiplier));
+  }
+
+  .form__tabs a[role=tab] {
+    padding-right: calc(18 * var(--width-multiplier));
+    font-size: calc(18 * var(--width-multiplier));
+  }
+
+  .form__tabs {
+    gap: calc(18 * var(--width-multiplier));
   }
 
   .form__from span,
@@ -1526,9 +1595,18 @@ body.modal-open {
     gap: calc(30 * var(--width-multiplier));
   }
 
-  .form__caption,
-  .form__num {
+  .form__num,
+  .form__caption {
     font-size: calc(18 * var(--width-multiplier));
+  }
+
+  .form__tabs a[role=tab] {
+    padding-right: calc(16 * var(--width-multiplier));
+    font-size: calc(16 * var(--width-multiplier));
+  }
+
+  .form__tabs {
+    gap: calc(16 * var(--width-multiplier));
   }
 
   .form__group,
