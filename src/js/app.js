@@ -49,6 +49,31 @@ window.addEventListener("load", function () {
       return lbl ? lbl.textContent.trim() : "";
     };
 
+    // ★ Минимальная сумма для ручного ввода на 1-м шаге
+    const MIN_PRICE = 25000;
+
+    // ★ helpers для ошибок поля
+    function setFieldError(input, msg) {
+      if (!input) return;
+      input.classList.add("is-error");
+      input.setAttribute("aria-invalid", "true");
+      let err = input.parentElement?.querySelector(".field-error");
+      if (!err) {
+        err = document.createElement("div");
+        err.className = "field-error";
+        // попробуем вставить под инпут
+        (input.parentElement || input).appendChild(err);
+      }
+      err.textContent = msg;
+    }
+    function clearFieldError(input) {
+      if (!input) return;
+      input.classList.remove("is-error");
+      input.removeAttribute("aria-invalid");
+      const err = input.parentElement?.querySelector(".field-error");
+      if (err) err.textContent = "";
+    }
+
     // ——— DOM
     const steps = $all(".form__step");
     if (!steps.length) return;
@@ -155,6 +180,9 @@ window.addEventListener("load", function () {
           if (!href || href === activeTabId) return;
           activeTabId = href;
           tabLinks.forEach(l => l.classList.toggle('is-active', l === a));
+          // ★ очистим ошибку при переключении вкладок
+          const manual = $('#tab-1 .form__fields .input-text');
+          clearFieldError(manual);
           applyTabVisibility();
         });
       });
@@ -195,6 +223,24 @@ window.addEventListener("load", function () {
         }
       });
 
+      // ★ проверка минимума на 1-м шаге (только вкладка #tab-1)
+      if (isFirstStep && activeTabId === '#tab-1') {
+        const manual = $('#tab-1 .form__fields .input-text');
+        if (manual && manual.value.trim()) {
+          const value = num(manual.value);
+          if (value < MIN_PRICE) {
+            valid = false;
+            setFieldError(manual, `Минимальная сумма — ${fmt(MIN_PRICE)} тг`);
+          } else {
+            clearFieldError(manual);
+          }
+        } else {
+          // если пусто — убираем возможную старую ошибку
+          const manual2 = $('#tab-1 .form__fields .input-text');
+          clearFieldError(manual2);
+        }
+      }
+
       return valid;
     }
 
@@ -205,6 +251,8 @@ window.addEventListener("load", function () {
         if (!panel) return 0;
         const manual = panel.querySelector('.input-text');
         const checked = panel.querySelector('input[name="price"]:checked');
+        // ★ даже если введено меньше минимума — для суммы учитываем фактическое значение,
+        // но кнопки не дадут перейти дальше. (можно поменять логику при желании)
         if (manual && manual.value.trim()) return num(manual.value);
         if (checked) return num(checked.value);
         return 0;
@@ -298,7 +346,12 @@ window.addEventListener("load", function () {
     });
     btnNext?.addEventListener("click", (e) => {
       e.preventDefault();
-      if (!isStepValid(steps[current])) return;
+      if (!isStepValid(steps[current])) {
+        // ★ прокрутка к ошибке (если есть)
+        const err = steps[current].querySelector(".field-error");
+        err?.scrollIntoView({ behavior: "smooth", block: "center" });
+        return;
+      }
       if (current < steps.length - 1) { current++; showStep(current); }
     });
     btnFinish?.addEventListener("click", (e) => {
@@ -329,12 +382,24 @@ window.addEventListener("load", function () {
         manual.addEventListener("blur", () => {
           const d = onlyDigits(manual.value);
           manual.value = d ? fmt(String(parseInt(d, 10))) : "";
+          // ★ при блюре сразу покажем/снимем ошибку минимума на 1-м шаге
+          const isFirstStepPanel = steps[0]?.contains(fields);
+          if (isFirstStepPanel && activeTabId === '#tab-1') {
+            const value = num(manual.value);
+            if (manual.value.trim() && value < MIN_PRICE) {
+              setFieldError(manual, `Минимальная сумма — ${fmt(MIN_PRICE)} тг`);
+            } else {
+              clearFieldError(manual);
+            }
+          }
           scheduleUpdate();
         });
 
         radios.forEach((r) => {
           r.addEventListener("change", () => {
             if (r.checked && manual.value) manual.value = "";
+            // ★ если выбрали радио — снимаем ошибку минимума
+            clearFieldError(manual);
             scheduleUpdate();
           });
         });
@@ -407,6 +472,7 @@ window.addEventListener("load", function () {
     renderTotal();
     updateButtonsState();
   }
+
 
   // Модалка
 

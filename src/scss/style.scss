@@ -654,10 +654,18 @@ body.modal-open {
         color: var(--light, $light);
       }
     }
-    .input-text {
-      flex: 0 1 65%;
+  }
+  &__field {
+    &-sum {
+      display: flex;
+      flex-direction: column;
+      gap: calc(10 * var(--width-multiplier));
+      flex: 0 1 65% !important;
       @media (max-width: 767px) {
-        flex: 1 1 100%;
+        flex: 1 1 100% !important;
+      }
+      .field-error {
+        font-size: calc(14 * var(--width-multiplier));
       }
     }
   }
