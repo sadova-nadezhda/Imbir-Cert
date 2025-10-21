@@ -614,6 +614,14 @@ body.modal-open {
       text-align: center;
     }
   }
+  .type-price {
+    font-size: calc(20 * var(--width-multiplier));
+    text-align: end;
+    @media (max-width: 767px) {
+      font-size: calc(16 * var(--width-multiplier));
+      text-align: center;
+    }
+  }
   &__group, &__services {
     display: flex;
     flex-direction: column;

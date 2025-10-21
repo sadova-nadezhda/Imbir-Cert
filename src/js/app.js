@@ -49,10 +49,8 @@ window.addEventListener("load", function () {
       return lbl ? lbl.textContent.trim() : "";
     };
 
-    // ★ Минимальная сумма для ручного ввода на 1-м шаге
     const MIN_PRICE = 25000;
 
-    // ★ helpers для ошибок поля
     function setFieldError(input, msg) {
       if (!input) return;
       input.classList.add("is-error");
@@ -90,6 +88,8 @@ window.addEventListener("load", function () {
 
     const servicesPriceNode = $('#tab-2 .services-price span');
 
+    const typePriceNode = $('.type-price span');
+
     // ——— state
     let current = 0;
     let updateScheduled = false;
@@ -110,6 +110,32 @@ window.addEventListener("load", function () {
       servicesPriceNode.textContent = v ? `${fmt(v)} тг` : '';
     }
 
+    function renderTypePrice() {
+      if (!typePriceNode) return;
+      if (!form.classList.contains("subscription__form")) {
+        typePriceNode.textContent = '';
+        return;
+      }
+
+      const typeChecked   = form.querySelector('input[name="type"]:checked');
+      const amountChecked = form.querySelector('input[name="amount"]:checked[data-prices]');
+
+      if (!typeChecked || !amountChecked) {
+        typePriceNode.textContent = '';
+        return;
+      }
+
+      let map = {};
+      try {
+        map = JSON.parse(amountChecked.dataset.prices || "{}");
+      } catch (_) { map = {}; }
+
+      const raw = map[typeChecked.id];
+      const price = typeof raw === "number" ? raw : num(raw);
+
+      typePriceNode.textContent = price ? `${fmt(price)} тг` : '';
+    }
+
     const scheduleUpdate = () => {
       if (updateScheduled) return;
       updateScheduled = true;
@@ -117,6 +143,7 @@ window.addEventListener("load", function () {
         updateScheduled = false;
         renderTotal();
         renderServicePrice();
+        renderTypePrice();
         updateButtonsState();
       });
     };
@@ -180,7 +207,6 @@ window.addEventListener("load", function () {
           if (!href || href === activeTabId) return;
           activeTabId = href;
           tabLinks.forEach(l => l.classList.toggle('is-active', l === a));
-          // ★ очистим ошибку при переключении вкладок
           const manual = $('#tab-1 .form__fields .input-text');
           clearFieldError(manual);
           applyTabVisibility();
@@ -251,8 +277,6 @@ window.addEventListener("load", function () {
         if (!panel) return 0;
         const manual = panel.querySelector('.input-text');
         const checked = panel.querySelector('input[name="price"]:checked');
-        // ★ даже если введено меньше минимума — для суммы учитываем фактическое значение,
-        // но кнопки не дадут перейти дальше. (можно поменять логику при желании)
         if (manual && manual.value.trim()) return num(manual.value);
         if (checked) return num(checked.value);
         return 0;
@@ -382,7 +406,6 @@ window.addEventListener("load", function () {
         manual.addEventListener("blur", () => {
           const d = onlyDigits(manual.value);
           manual.value = d ? fmt(String(parseInt(d, 10))) : "";
-          // ★ при блюре сразу покажем/снимем ошибку минимума на 1-м шаге
           const isFirstStepPanel = steps[0]?.contains(fields);
           if (isFirstStepPanel && activeTabId === '#tab-1') {
             const value = num(manual.value);
@@ -398,7 +421,6 @@ window.addEventListener("load", function () {
         radios.forEach((r) => {
           r.addEventListener("change", () => {
             if (r.checked && manual.value) manual.value = "";
-            // ★ если выбрали радио — снимаем ошибку минимума
             clearFieldError(manual);
             scheduleUpdate();
           });
@@ -470,9 +492,9 @@ window.addEventListener("load", function () {
     showStep(current);
     if (tabsList && activeTabId) ensureFirstRadioChecked($(activeTabId));
     renderTotal();
+    renderTypePrice();
     updateButtonsState();
   }
-
 
   // Модалка
 

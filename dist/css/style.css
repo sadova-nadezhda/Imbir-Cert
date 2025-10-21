@@ -929,6 +929,11 @@ body.modal-open {
   text-align: end;
 }
 
+.form .type-price {
+  font-size: calc(20 * var(--width-multiplier));
+  text-align: end;
+}
+
 .form__group,
 .form__services {
   display: flex;
@@ -1631,6 +1636,11 @@ body.modal-open {
 
   .form .services-price {
     margin-top: calc(20 * var(--width-multiplier));
+    font-size: calc(16 * var(--width-multiplier));
+    text-align: center;
+  }
+
+  .form .type-price {
     font-size: calc(16 * var(--width-multiplier));
     text-align: center;
   }
