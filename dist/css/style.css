@@ -975,6 +975,10 @@ body.modal-open {
   color: var(--light, #E9E1D7);
 }
 
+.form__fields .input-text {
+  flex: 0 1 65%;
+}
+
 .form__field-sum {
   display: flex;
   flex-direction: column;
@@ -1634,6 +1638,10 @@ body.modal-open {
   .form__group,
   .form__services {
     gap: calc(20 * var(--width-multiplier));
+  }
+
+  .form__fields .input-text {
+    flex: 1 1 100%;
   }
 
   .form__field-sum {

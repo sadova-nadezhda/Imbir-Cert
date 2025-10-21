@@ -654,6 +654,12 @@ body.modal-open {
         color: var(--light, $light);
       }
     }
+    .input-text {
+      flex: 0 1 65%;
+      @media (max-width: 767px) {
+        flex: 1 1 100%;
+      }
+    }
   }
   &__field {
     &-sum {
