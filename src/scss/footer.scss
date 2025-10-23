@@ -2,7 +2,7 @@
   color: var(--light, $light);
   background-color: var(--primary, $primary);
   &__container {
-    padding: 40px 0;
+    padding: calc(40 * var(--width-multiplier)) 0;
     line-height: 1;
     a:not(.footer__logo) {
       position: relative;
@@ -23,27 +23,27 @@
       }
     }
     @media (max-width: 767px) {
-      padding: 30px 0;
+      padding: calc(30 * var(--width-multiplier)) 0;
     }
   }
   &__row {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 32px;
+    gap: calc(32 * var(--width-multiplier));
     @media (max-width: 767px) {
       flex-direction: column;
-      gap: 40px;
+      gap: calc(40 * var(--width-multiplier));
     }
   }
   &__wrap {
-    padding-bottom: 30px;
-    margin-bottom: 30px;
+    padding-bottom: calc(30 * var(--width-multiplier));
+    margin-bottom: calc(30 * var(--width-multiplier));
     border-bottom: 1px solid rgba(233, 225, 215, 0.3);
   }
   &__logo {
-    width: 210px;
-    height: 40px;
+    width: calc(210 * var(--width-multiplier));
+    height: calc(60 * var(--width-multiplier));
     img {
       width: 100%;
       height: 100%;
@@ -53,40 +53,40 @@
   &__group {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: calc(30 * var(--width-multiplier));
   }
   &__menu {
     display: flex;
     align-items: center;
-    gap: 32px;
+    gap: calc(32 * var(--width-multiplier));
     @media (max-width: 767px) {
-      gap: 20px;
+      gap: calc(20 * var(--width-multiplier));
     }
   }
   &__copy {
     line-height: 1.2em;
     @media (max-width: 767px) {
-      gap: 16px;
+      gap: calc(16 * var(--width-multiplier));
     }
   }
   &-hero {
     background-color: var(--dark, $dark);
     .footer__container {
-      padding: 20px 0;
+      padding: calc(20 * var(--width-multiplier)) 0;
       @media (max-width: 767px) {
-        padding: 20px 0;
+        padding: calc(20 * var(--width-multiplier)) 0;
       }
     }
     &__menu {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
+      gap: calc(20 * var(--width-multiplier));
       @media (max-width: 767px) {
         flex-direction: column;
         align-items: flex-start;
         justify-content: flex-start;
-        gap: 16px;
+        gap: calc(16 * var(--width-multiplier));
       }
     }
   }
