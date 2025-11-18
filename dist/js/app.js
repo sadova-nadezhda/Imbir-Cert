@@ -593,6 +593,49 @@ window.addEventListener("load", function () {
 
   });
 
+  // Конверт сертификата
+  
+  const wrap       = document.querySelector('.envelope-wrapper');
+  const letter     = document.querySelector('.letter');
+  const details    = document.querySelector('.certificate-details-root');
+  const giftBtn    = document.querySelector('.gift__button');
+  const giftGroup  = document.querySelector('.gift__group');
+
+  let started = false;
+  let extrasShown = false;
+
+  if (wrap && letter) {
+    wrap.addEventListener('click', () => {
+      if (started) return;
+      started = true;
+
+      // Сначала открываем конверт (поднимается клапан)
+      wrap.classList.add('open');
+
+      // После открытия конверта начинаем финальную фазу:
+      // прячем сам конверт и масштабируем сертификат
+      setTimeout(() => {
+        wrap.classList.add('final');
+        letter.classList.add('scaling');
+
+        // Ждём окончания анимации letter (transition)
+        const onLetterTransitionEnd = (e) => {
+          if (e.target !== letter || extrasShown) return;
+          extrasShown = true;
+          letter.removeEventListener('transitionend', onLetterTransitionEnd);
+
+          // Только после полного показа сертификата —
+          // показываем скрытые блоки (детали, кнопка, текст под конвертом)
+          if (details)   details.classList.add('content-visible');
+          if (giftBtn)   giftBtn.classList.add('content-visible');
+          if (giftGroup) giftGroup.classList.add('content-visible');
+        };
+
+        letter.addEventListener('transitionend', onLetterTransitionEnd);
+      }, 600); // ~длительность открытия клапана (0.6s)
+    });
+  }
+
   // Tabby
   var tabs = new Tabby('[data-tabs]');
 });
